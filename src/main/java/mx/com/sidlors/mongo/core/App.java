@@ -1,6 +1,7 @@
 package mx.com.sidlors.mongo.core;
 
 
+import java.util.Arrays;
 import java.util.Date;
 
 import com.mongodb.BasicDBObject;
@@ -8,7 +9,9 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
 import com.mongodb.MongoException;
+import com.mongodb.ServerAddress;
 
 /**
  * Hello world!
@@ -20,13 +23,12 @@ public class App {
 		try {
 
 			/**** Connect to MongoDB ****/
-			
-			MongoClient mongo = new MongoClient("localhost", 27017);
-
+			MongoCredential  credential = MongoCredential.createCredential("sidlors", "mongosidlors", "Semeolvid0".toCharArray());
+			MongoClient mongo = new MongoClient(new ServerAddress("ds023088.mlab.com:23088"), Arrays.asList(credential));
 			/**** Get database ****/
 			// si la base no existe MongoDb la creara
-			DB db = mongo.getDB("testdb");
-
+			DB db = mongo.getDB("mongosidlors");
+			
 			/**** Get collection / table from 'testdb' ****/
 			// Si la collection no existe MongoDB la creara por nosotros
 			DBCollection table = db.getCollection("user");
